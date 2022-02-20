@@ -20,7 +20,11 @@ public class BankServiceImpl implements BankService {
     @Override
     public void transfer(String fromAccountNumber, String toAccountNumber, BigDecimal amount) {
         Account fromAccount = accountDao.get(fromAccountNumber);
-        Account toAccount = accountDao.get(fromAccountNumber);
+        Account toAccount = accountDao.get(toAccountNumber);
+
+        System.out.println("");
+        System.out.println("BEFORE TRANSFER");
+        print(fromAccount, toAccount);
 
         BigDecimal commission = commissionStrategy.get(fromAccount.getType())
             .getCommission(amount);
@@ -33,8 +37,21 @@ public class BankServiceImpl implements BankService {
 
         accountDao.update(fromAccount);
         accountDao.update(toAccount);
+
+        System.out.println("");
+        System.out.println("AFTER TRANSFER");
+        print(fromAccount, toAccount);
+
     }
 
+    private void print(Account fromAccount, Account toAccount) {
+        System.out.println("Number: " + fromAccount.getNumber()
+            + " value:" + fromAccount.getAmount()
+            + " type: " + fromAccount.getType());
+        System.out.println("Number: " + toAccount.getNumber()
+            + " value:" + toAccount.getAmount()
+            + " type: " + toAccount.getType());
+    }
 
 
 }

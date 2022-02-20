@@ -7,6 +7,12 @@ public class Account {
     private BigDecimal amount = new BigDecimal(0);
     private Type type;
 
+    public Account(String number, BigDecimal amount, Type type) {
+        this.number = number;
+        this.amount = amount;
+        this.type = type;
+    }
+
     public String getNumber() {
         return number;
     }
